@@ -11,3 +11,11 @@
 * For run tests:
 
     ``python -m tests``
+
+## Dockerfile
+
+---
+* For build container:
+    ``sudo docker build -t myimage``
+* For run app and tests:
+    ``sudo docker run  --name mycontainer -p 8000:8000 myimage``
