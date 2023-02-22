@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0
+    volumes:
+      - .:/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:alpine3.17
+
+  postgres:
+    image: postgres:alpine3.17
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db
+    ports:
+      - 5432:5432
+
+
