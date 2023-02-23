@@ -8,5 +8,3 @@ COPY . /app
 
 EXPOSE 8000
 
-
-CMD python3 -m pytest; python system_config.py
