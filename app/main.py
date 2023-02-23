@@ -1,12 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-import databases
 from app import system_config
-import asyncio
 import aioredis
-
-database = databases.Database(
-    f"postgresql://{system_config.db_user}:{system_config.db_password}@postgres/{system_config.db_db}")
+from app import connect_db
 
 app = FastAPI()
 
@@ -22,13 +18,15 @@ async def health_check():
 
 @app.on_event("startup")
 async def startup():
-    redis = await aioredis.from_url("redis://redis")
-    await database.connect()
+    redis = await connect_db.get_redis()
+    db = connect_db.get_db()
+    await db.connect()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    await database.disconnect()
+    db = connect_db.get_db()
+    await db.disconnect()
 
 
 if __name__ == '__main__':
