@@ -2,7 +2,7 @@ fastapi~=0.92.0
 pytest~=7.2.1
 starlette~=0.25.0
 httpx~=0.23.3
-uvicorn
+uvicorn~=0.20.0
 pytest_asyncio
 aioredis~=2.0.1
 databases~=0.7.0
@@ -10,3 +10,5 @@ SQLAlchemy~=1.4.46
 python-dotenv~=0.21.1
 asyncpg
 psycopg2
+pydantic~=1.10.5
+fastapi_sqlalchemy

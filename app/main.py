@@ -1,9 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
 from app import system_config
-import aioredis
 from app import connect_db
+import os
+from app.schemas.schemas import User as SchemaUser
+from dotenv import load_dotenv
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 app = FastAPI()
 
 
@@ -27,6 +31,11 @@ async def startup():
 async def shutdown():
     db = connect_db.get_db()
     await db.disconnect()
+
+
+@app.post("/user/", response_model=SchemaUser)
+def create_user(user: SchemaUser):
+    pass
 
 
 if __name__ == '__main__':
