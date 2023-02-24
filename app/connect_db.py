@@ -1,5 +1,5 @@
 from databases import Database
-from app import system_config
+import system_config
 import aioredis
 from sqlalchemy.ext.declarative import declarative_base
 

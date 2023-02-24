@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-from app import system_config
-from app import connect_db
-from app.schemas.schemas import User as SchemaUser
+import system_config
+import connect_db
+from schemas.schemas import User as SchemaUser
 
 app = FastAPI()
 
