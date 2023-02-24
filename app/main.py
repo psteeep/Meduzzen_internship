@@ -2,12 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from app import system_config
 from app import connect_db
-import os
 from app.schemas.schemas import User as SchemaUser
-from dotenv import load_dotenv
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(BASE_DIR, ".env"))
 app = FastAPI()
 
 
