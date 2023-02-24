@@ -1,5 +1,5 @@
 from databases import Database
-from app import system_config
+import system_config
 import aioredis
 
 URI = f"postgresql://{system_config.db_user}:{system_config.db_password}@postgres/{system_config.db_db}"

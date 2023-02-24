@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-from app import system_config
+import system_config
 import aioredis
-from app import connect_db
+import connect_db
 
 app = FastAPI()
 
