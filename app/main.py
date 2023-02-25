@@ -1,6 +1,8 @@
-#import uvicorn
+import uvicorn
 from fastapi import FastAPI
-#import system_config
+import system_config
+import aioredis
+import connect_db
 
 app = FastAPI()
 
@@ -13,3 +15,19 @@ async def health_check():
         "result": "working"
     }
 
+
+@app.on_event("startup")
+async def startup():
+    redis = await connect_db.get_redis()
+    db = connect_db.get_db()
+    await db.connect()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    db = connect_db.get_db()
+    await db.disconnect()
+
+
+if __name__ == '__main__':
+    uvicorn.run('main:app', host=system_config.host, port=system_config.dev_port, reload=True)
