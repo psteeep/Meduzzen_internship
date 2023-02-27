@@ -23,7 +23,7 @@ class UserUpdate(BaseModel):
     email: str
 
 
-class UserList(BaseModel):
+class UserBaseResponse(BaseModel):
     id: int
     name: str
     email: str

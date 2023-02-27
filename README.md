@@ -19,3 +19,9 @@
     ``sudo docker build -t myimage``
 * For run app and tests:
     ``sudo docker run  --name mycontainer -p 8000:8000 myimage``
+
+## Migrations
+
+---
+* ``alembic revision --autogenerate -m "migration name"``
+* ``alembic upgrade head``
