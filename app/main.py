@@ -31,7 +31,7 @@ async def shutdown():
 
 @app.post("/user/", response_model=SchemaUser)
 def create_user(user: SchemaUser):
-    pass
+    return user
 
 
 if __name__ == '__main__':
