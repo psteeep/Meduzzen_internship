@@ -9,7 +9,6 @@ Base = declarative_base()
 db = Database(URI)
 redis = aioredis.from_url(f"{system_config.redis}://{system_config.redis}")
 
-
 def get_db():
     return db
 

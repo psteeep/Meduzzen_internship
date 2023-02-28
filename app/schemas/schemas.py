@@ -11,16 +11,18 @@ class User(BaseModel):
 class SignIn(BaseModel):
     email: str
     password: str
+    status: str
 
 
 class SignUp(BaseModel):
     email: str
     password: str
+    status: str
 
 
 class UserUpdate(BaseModel):
     name: str
-    email: str
+    status: str
 
 
 class UserBaseResponse(BaseModel):

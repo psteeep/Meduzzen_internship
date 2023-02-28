@@ -2,7 +2,6 @@ import uvicorn
 from fastapi import FastAPI
 import system_config
 import connect_db
-from schemas.schemas import User as SchemaUser
 
 app = FastAPI()
 
@@ -27,11 +26,6 @@ async def startup():
 async def shutdown():
     db = connect_db.get_db()
     await db.disconnect()
-
-
-@app.post("/user/", response_model=SchemaUser)
-def create_user(user: SchemaUser):
-    return user
 
 
 if __name__ == '__main__':
