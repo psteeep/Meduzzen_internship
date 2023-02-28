@@ -9,3 +9,5 @@ db_url = os.getenv("DATABASE_URL")
 db_user = os.getenv("DATABASE_USER")
 db_password = os.getenv("DATABASE_PASSWORD")
 db_db = os.getenv("DATABASE_DB")
+
+redis = os.getenve("REDIS_PORT")

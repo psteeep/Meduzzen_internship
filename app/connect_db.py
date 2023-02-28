@@ -1,5 +1,5 @@
 from databases import Database
-from . import system_config
+import system_config
 import aioredis
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -7,7 +7,7 @@ URI = f"postgresql://{system_config.db_user}:{system_config.db_password}@{system
 
 Base = declarative_base()
 db = Database(URI)
-redis = aioredis.from_url("redis://redis")
+redis = aioredis.from_url(f"{system_config.redis}://{system_config.redis}")
 
 
 def get_db():
