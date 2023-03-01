@@ -11,5 +11,5 @@ db_password = os.getenv("DATABASE_PASSWORD")
 db_db = os.getenv("DATABASE_DB")
 post_port = os.getenv("POSTGRES_PORT")
 
-redis = os.getenve("REDIS_PORT")
+redis = os.getenv("REDIS_PORT")
 redis_uri = os.getenv("REDIS_URI")

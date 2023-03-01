@@ -30,7 +30,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from app import models
 
-target_metadata = User.metadata
+target_metadata = Base.metadata
 
 
 # other values from the config, defined by the needs of env.py,
