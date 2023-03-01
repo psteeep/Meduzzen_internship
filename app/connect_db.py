@@ -7,7 +7,7 @@ URI = f"postgresql://{system_config.db_user}:{system_config.db_password}@{system
 
 Base = declarative_base()
 db = Database(URI)
-redis = aioredis.from_url(system_config.redis)
+redis = aioredis.from_url(system_config.redis_uri)
 
 def get_db():
     return db
