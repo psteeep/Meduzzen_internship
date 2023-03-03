@@ -29,10 +29,5 @@ async def shutdown():
     await db.disconnect()
 
 
-@app.post("/user/", response_model=SchemaUser)
-def create_user(user: SchemaUser):
-    return user
-
-
 if __name__ == '__main__':
     uvicorn.run('main:app', host=system_config.host, port=system_config.dev_port, reload=True)
