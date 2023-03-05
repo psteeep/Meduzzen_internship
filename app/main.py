@@ -2,9 +2,10 @@ import uvicorn
 from fastapi import FastAPI
 import system_config
 import connect_db
-from schemas.schemas import User as SchemaUser
+from routers import users
 
 app = FastAPI()
+app.include_router(users.router, prefix='/users', tags=['users'])
 
 
 @app.get("/")
