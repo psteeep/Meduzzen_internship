@@ -1,11 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator, Field
+from typing import Optional
 
 
-class User(BaseModel):
-    id: int
+class UserSchema(BaseModel):
+    id: Optional[str] = None
     name: str
     email: str
-    password: str
+    #hashed_password: str
 
 
 class SignIn(BaseModel):
@@ -15,9 +16,20 @@ class SignIn(BaseModel):
 
 
 class SignUp(BaseModel):
+    name: str
     email: str
-    password: str
-    status: str
+
+    password: str = Field(min_length=8, max_length=32)
+    password2: str = Field(min_length=8, max_length=32)
+
+    @validator('password2')
+    def passwords_match(cls, password2, values):
+        if 'password' in values and password2 != values['password']:
+            raise ValueError('passwords don`t match')
+        return password2
+
+    class Config:
+        orm_mode = True
 
 
 class UserUpdate(BaseModel):

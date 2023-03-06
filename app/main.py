@@ -4,7 +4,10 @@ import system_config
 import aioredis
 import connect_db
 
+from routers import users
+
 app = FastAPI()
+app.include_router(users.router, prefix='/users', tags=['users'])
 
 
 @app.get("/")
