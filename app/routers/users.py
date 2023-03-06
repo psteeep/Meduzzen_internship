@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get('/', response_model=List[UserSchema])
-async def get_users(users: UserCRUD = Depends(get_user_crud), limit: int = 100, skip: int = 100):
+async def get_users(users: UserCRUD = Depends(get_user_crud), limit: int = 100, skip: int = 0):
     return await users.get_users(limit=limit, skip=skip)
 
 
@@ -27,6 +27,7 @@ async def get_user(id: int, users: UserCRUD = Depends(get_user_crud)):
     return await users.get_user(id=id)
 
 
-@router.delete('/', response_model=UserSchema)
+@router.delete('/')
 async def delete(id: int, users: UserCRUD = Depends(get_user_crud)):
-    return {}
+    await users.delete_user(id=id)
+    return {"message": "Item deleted successfully"}

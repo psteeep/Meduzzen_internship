@@ -1,10 +1,12 @@
 from pydantic import BaseModel, validator, Field
+from typing import Optional
 
 
 class UserSchema(BaseModel):
-    id: int
+    id: Optional[str] = None
     name: str
     email: str
+    #hashed_password: str
 
 
 class SignIn(BaseModel):
