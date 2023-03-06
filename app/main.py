@@ -1,7 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
 import system_config
+import aioredis
 import connect_db
+
 from routers import users
 
 app = FastAPI()
