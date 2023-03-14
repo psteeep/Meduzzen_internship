@@ -4,8 +4,11 @@ from schemas.schemas import UserSchema, SignIn, SignUp, Token
 from services.users import UserCRUD
 from .depends import get_user_crud, get_current_user
 from core.security import create_access_token
+from fastapi.security import HTTPBearer
+from utils.utils import VerifyToken
 
 router = APIRouter()
+token_auth_schema = HTTPBearer()
 
 
 @router.get('/', response_model=List[UserSchema])
@@ -46,10 +49,7 @@ async def login(login: SignIn, users: UserCRUD = Depends(get_user_crud)):
 
 
 @router.get('/me')
-async def get_me(id: int, token_data: UserSchema = Depends(get_current_user)):
-    if token_data is None:
+async def get_me(email: str, users: UserCRUD = Depends(get_user_crud), token: str = Depends(token_auth_schema)):
+    if token is None:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    user = get_user(id=id)
-    if user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
+    return await users.get_by_email(email=email)

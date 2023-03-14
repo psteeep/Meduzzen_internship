@@ -4,7 +4,7 @@ from typing import List, Optional
 from core.security import hash_password
 from .base import BaseRepository
 from sqlalchemy import insert, select, update, delete
-
+from fastapi import HTTPException
 
 class UserCRUD(BaseRepository):
 
