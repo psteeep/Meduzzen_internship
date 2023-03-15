@@ -49,7 +49,5 @@ async def login(login: SignIn, users: UserCRUD = Depends(get_user_crud)):
 
 
 @router.get('/me')
-async def get_me(email: str, users: UserCRUD = Depends(get_user_crud), token: str = Depends(token_auth_schema)):
-    if token is None:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-    return await users.get_by_email(email=email)
+async def get_me(user: UserSchema = Depends(get_current_user)) -> UserSchema:
+    return user
