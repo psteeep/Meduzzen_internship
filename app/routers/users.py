@@ -48,6 +48,6 @@ async def login(login: SignIn, users: UserCRUD = Depends(get_user_crud)):
     )
 
 
-@router.get('/me')
-async def get_me(user: UserSchema = Depends(get_current_user)) -> UserSchema:
-    return user
+@router.get('/me/')
+async def get_mes(users=Depends(get_current_user)):
+    return users

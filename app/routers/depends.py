@@ -13,11 +13,15 @@ def get_user_crud() -> UserCRUD:
 
 
 async def get_current_user(
-        users: UserCRUD = Depends(get_user_crud),
+        #users: UserCRUD = Depends(get_user_crud),
+        db = Depends(get_db),
         token: str = Depends(token_auth_schema),
-) -> UserSchema:
+):
+    users = UserCRUD(db)
+    print("dddsd")
     cred_exception = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Credentials are not valid")
     payload = decode_access_token(token)
+    print("dsad")
     if payload is None:
         raise cred_exception
     email: str = payload.get("sub")

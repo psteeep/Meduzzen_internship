@@ -13,3 +13,5 @@ db_db = os.getenv("DATABASE_DB")
 access_token_min = os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES')
 algorithm = os.getenv('ALGORITHM')
 secret_key = os.getenv('SECRET_KEY')
+
+algorithms = os.getenv('ALGORITHMS')
