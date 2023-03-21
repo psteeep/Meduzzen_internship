@@ -16,7 +16,7 @@ def verify_password(password: str, hash: str) -> bool:
     return pwd_context.verify_password(password, hash)
 
 
-def create_access_token(data: dict) -> str:
+def create_access_token(data: str) -> str:
     to_encode = data.copy()
     to_encode.update({'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)})
     return jwt.encode(to_encode, system_config.secret_key, algorithm=system_config.algorithm)

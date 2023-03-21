@@ -27,14 +27,14 @@ async def update(id: int, user: SignUp, users: UserCRUD = Depends(get_user_crud)
 
 
 @router.get('/{id}', response_model=UserSchema)
-async def get_user(id: int, users: UserCRUD = Depends(get_user_crud)):
+async def get_user(id: int, users: UserCRUD = Depends(get_user_crud)) -> UserSchema:
     return await users.get_user(id=id)
 
 
 @router.delete('/')
-async def delete(id: int, users: UserCRUD = Depends(get_user_crud)) -> dict:
-    await users.delete_user(id=id)
-    return {"message": "Item deleted successfully"}
+async def delete(id: int, users: UserCRUD = Depends(get_user_crud)) -> UserSchema:
+    return await users.delete_user(id=id)
+    # return {"message": "Item deleted successfully"}
 
 
 @router.post('/login', response_model=Token)
