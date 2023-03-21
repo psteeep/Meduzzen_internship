@@ -22,7 +22,7 @@ def create_access_token(data: dict) -> str:
     return jwt.encode(to_encode, system_config.secret_key, algorithm=system_config.algorithm)
 
 
-def decode_access_token(token: any) -> str:
+def decode_access_token(token: str) -> str:
     try:
         encoded_jwt = jwt.decode(token.credentials, system_config.secret_key, algorithms=[system_config.algorithm])
     except jwt.JWSError:

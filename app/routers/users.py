@@ -32,7 +32,7 @@ async def get_user(id: int, users: UserCRUD = Depends(get_user_crud)):
 
 
 @router.delete('/')
-async def delete(id: int, users: UserCRUD = Depends(get_user_crud)):
+async def delete(id: int, users: UserCRUD = Depends(get_user_crud)) -> dict:
     await users.delete_user(id=id)
     return {"message": "Item deleted successfully"}
 
@@ -48,6 +48,6 @@ async def login(login: SignIn, users: UserCRUD = Depends(get_user_crud)):
     )
 
 
-@router.get('/me/')
+@router.get('/me/', response_model=UserSchema)
 async def get_mes(users=Depends(get_current_user)):
     return users

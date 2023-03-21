@@ -44,7 +44,7 @@ class UserCRUD(BaseRepository):
         await self.database.execute(query)
         return user
 
-    async def delete_user(self, id: int):
+    async def delete_user(self, id: int) -> UserSchema:
         query = delete(User).where(User.id == id)
         return await self.database.execute(query)
 
