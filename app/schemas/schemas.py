@@ -12,6 +12,7 @@ class UserSchema(BaseModel):
 class SignIn(BaseModel):
     email: str
     password: str
+    status: str
 
 
 class Token(BaseModel):
@@ -22,6 +23,7 @@ class Token(BaseModel):
 class SignUp(BaseModel):
     name: str
     email: str
+
     password: str = Field(min_length=8, max_length=32)
     password2: str = Field(min_length=8, max_length=32)
 
@@ -37,7 +39,7 @@ class SignUp(BaseModel):
 
 class UserUpdate(BaseModel):
     name: str
-    email: str
+    status: str
 
 
 class UserBaseResponse(BaseModel):

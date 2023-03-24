@@ -20,7 +20,7 @@ config = context.config
 # this will overwrite the ini-file sqlalchemy.url path
 # with the path given in the config of the main code
 config.set_main_option("sqlalchemy.url",
-                       f"postgresql+asyncpg://{system_config.db_user}:{system_config.db_password}@{system_config.host}/{system_config.db_db}")
+                       f"postgresql+asyncpg://{system_config.db_user}:{system_config.db_password}@{system_config.host}:{system_config.post_port}/{system_config.db_db}")
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
@@ -30,7 +30,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from app import models
 
-target_metadata = User.metadata
+target_metadata = Base.metadata
 
 
 # other values from the config, defined by the needs of env.py,
