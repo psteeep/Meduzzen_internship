@@ -39,7 +39,7 @@ async def delete(id: int, users: UserCRUD = Depends(get_user_crud)) -> UserSchem
 
 @router.post('/login', response_model=Token, status_code=201)
 async def login(login: SignIn, users: UserCRUD = Depends(get_user_crud)):
-    user = await users.get_by_email(login.email)
+    user = await users.get_by_email(email=login.email)
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='incorrect username or password')
     return Token(
@@ -49,5 +49,5 @@ async def login(login: SignIn, users: UserCRUD = Depends(get_user_crud)):
 
 
 @router.get('/me/', response_model=UserSchema, status_code=201)
-async def get_mes(users=Depends(get_current_user)):
+async def get_me(users: UserSchema = Depends(get_current_user)) -> UserSchema:
     return users
