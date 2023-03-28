@@ -6,7 +6,7 @@ from core.security import decode_access_token
 from fastapi.security import HTTPBearer
 
 token_auth_schema = HTTPBearer()
-db = get_db()
+
 
 
 def get_user_crud() -> UserCRUD:
@@ -15,7 +15,7 @@ def get_user_crud() -> UserCRUD:
 
 async def get_current_user(
         # users: UserCRUD = Depends(get_user_crud),
-        db=db,
+        db=Depends(get_db),
         token: str = Depends(token_auth_schema),
 ):
     users = UserCRUD(db)
