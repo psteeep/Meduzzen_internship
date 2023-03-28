@@ -4,7 +4,7 @@ from typing import List, Optional
 from core.security import hash_password
 from .base import BaseRepository
 from sqlalchemy import insert, select, update, delete
-
+from fastapi import HTTPException
 
 class UserCRUD(BaseRepository):
 
@@ -13,17 +13,17 @@ class UserCRUD(BaseRepository):
         return await self.database.fetch_all(query=query)
 
     async def get_user(self, id: int) -> Optional[UserSchema]:
-        query = select(User).where(User.c.id == id).first()
+        query = select(User).where(User.id == id)
         user = await self.database.fetch_one(query)
         if user is None:
             return None
-        return UserSchema.parse_obj(User)
+        return user
 
     async def create_user(self, u: SignUp) -> UserSchema:
         user = UserSchema(
             name=u.name,
             email=u.email,
-            # hashed_password=hash_password(u.password),
+            password=hash_password(u.password),
         )
         values = {**user.dict()}
         values.pop('id', None)
@@ -35,7 +35,7 @@ class UserCRUD(BaseRepository):
         user = UserSchema(
             name=u.name,
             email=u.email,
-            # hashed_password=hash_password(u.password2)
+            password=hash_password(u.password2)
         )
         values = {**user.dict()}
         values.pop("created_at", None)
@@ -44,6 +44,13 @@ class UserCRUD(BaseRepository):
         await self.database.execute(query)
         return user
 
-    async def delete_user(self, id: int):
+    async def delete_user(self, id: int) -> UserSchema:
         query = delete(User).where(User.id == id)
         return await self.database.execute(query)
+
+    async def get_by_email(self, email: str) -> UserSchema:
+        query = select(User).where(User.email == email)
+        user = await self.database.fetch_one(query)
+        if user is None:
+            return None
+        return user

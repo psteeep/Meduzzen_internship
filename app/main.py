@@ -32,5 +32,6 @@ async def shutdown():
     await db.disconnect()
 
 
+
 if __name__ == '__main__':
     uvicorn.run('main:app', host=system_config.host, port=system_config.dev_port, reload=True)

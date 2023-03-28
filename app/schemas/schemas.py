@@ -6,13 +6,18 @@ class UserSchema(BaseModel):
     id: Optional[str] = None
     name: str
     email: str
-    #hashed_password: str
+    password: Optional[str]
 
 
 class SignIn(BaseModel):
     email: str
     password: str
     status: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 
 class SignUp(BaseModel):
