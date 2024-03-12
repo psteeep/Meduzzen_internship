@@ -22,8 +22,14 @@ async def create(user: SignUp, users: UserCRUD = Depends(get_user_crud)):
 
 
 @router.put('/', response_model=UserSchema, status_code=200)
-async def update(id: int, user: SignUp, users: UserCRUD = Depends(get_user_crud)):
-    return await users.update_user(id=id, u=user)
+async def update(id: int,
+                 user: SignUp,
+                 users: UserCRUD = Depends(get_user_crud),
+                 current_user: UserSchema = Depends(get_current_user)):
+    old_user = await users.get_user(id=id)
+    if old_user is None or old_user.email != current_user.email:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found user")
+    return await users.update(id=id, u=user)
 
 
 @router.get('/{id}', response_model=UserSchema, status_code=200)
@@ -31,8 +37,13 @@ async def get_user(id: int, users: UserCRUD = Depends(get_user_crud)) -> UserSch
     return await users.get_user(id=id)
 
 
-@router.delete('/', status_code=204)
-async def delete(id: int, users: UserCRUD = Depends(get_user_crud)) -> UserSchema:
+@router.delete('/', status_code=200)
+async def delete(id: int,
+                 users: UserCRUD = Depends(get_user_crud),
+                 current_user: UserSchema = Depends(get_current_user)) -> UserSchema:
+    old_user = await users.get_user(id=id)
+    if old_user is None or old_user.email != current_user.email:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not found user")
     return await users.delete_user(id=id)
     # return {"message": "Item deleted successfully"}
 
